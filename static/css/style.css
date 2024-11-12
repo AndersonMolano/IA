@@ -1,0 +1,155 @@
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #0d3558, #1897ff);
+    margin: 0;
+    padding: 0;
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    animation: fadeIn 1s; /* Animación de entrada */
+}
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+/* Efecto de levantamiento al pasar el mouse */
+form:hover {
+    transform: translateY(-5px);
+}
+
+/* Input de texto */
+input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s; /* Transición de color de borde */
+}
+
+input[type="text"]:focus {
+    border-color: #2362a5; /* Color de borde al enfocar */
+    outline: none; /* Quita el contorno por defecto */
+}
+
+/* Botón */
+button {
+    padding: 10px 20px;
+    background-color: #2362a5;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Transición de color y tamaño */
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Aumenta el tamaño al pasar el mouse */
+}
+
+/* Respuesta */
+#response {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Comienza oculto */
+    visibility: hidden; /* Comienza oculto */
+    transition: opacity 0.2s ease-in-out; /* Transición de opacidad */
+}
+
+#response.visible {
+    opacity: 1; /* Muestra la respuesta */
+    visibility: visible; /* Cambia a visible cuando se añade la clase */
+}
+
+/* Estilo del footer */
+footer {
+    position: absolute; /* Permite colocar el footer en cualquier parte de la página */
+    bottom: 0; /* Coloca el footer en la parte inferior */
+    right: 1; /* Coloca el footer en la parte derecha */
+    height: 60px; /* Altura del footer */
+    width: 400px; /* Ancho del footer */
+    text-align: center; /* Centra el texto en el footer */
+    color: #fff; /* Color del texto */ 
+    animation: fadeIn 1s; /* Animación de entrada */
+}
+
+.cambio_color {
+    display: flex;
+    position: absolute;
+    top: 10px; /* Coloca el elemento a 10px del borde superior */
+    right: 10px; /* Coloca el elemento a 10px del borde derecho */
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Párrafos */
+p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.inverted {
+    background: linear-gradient(to right, #a7a6a6, #333); /* Fondo invertido */
+    color: #000; /* Color de texto invertido */
+}
+
+.inverted h1, 
+.inverted form,
+.inverted footer {
+    color: #333; /* Color de texto para el título y footer */
+}
+.inverted footer,
+.inverted button {
+    background-color: #ccc; /* Fondo para botones invertidos */
+    color: #000; /* Color de texto para botones invertidos */
+}
+
+.inverted button:hover {
+    background-color: #aaa; /* Color de fondo al pasar el mouse */
+}
+
+.inverted input[type="text"] {
+    background-color: #ccc; /* Fondo para input invertido */
+    border-color: #333; /* Borde para input invertido */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

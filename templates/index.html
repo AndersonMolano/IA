@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Pregunta a PILA</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <img src="../static/img/descarga.webp" alt="logo">
+</head>
+
+<body>
+    <h1>Pregunta a PILA</h1>
+
+    <!-- Formulario para hacer preguntas -->
+    <form id="questionForm">
+        <input type="text" name="question" placeholder="Escribe tu pregunta aquí" required>
+        <button type="submit" id="submitButton">Enviar</button>
+    </form>
+
+    <button class="cambio_color" id="toggleColors">
+        <img id="toggleImage" src="../static/img/SOL.png" alt="Luna" style="width: 20px; height: 20px;">
+    </button>
+
+    <div id="response" style="opacity: 0; visibility: hidden;"></div>
+
+    <script>
+        // Botón para cambiar entre modo claro y oscuro
+        const toggleButton = document.getElementById('toggleColors');
+        const toggleImage = document.getElementById('toggleImage');
+        let isLuna = true; // Variable para rastrear el estado
+
+        toggleButton.addEventListener('click', function () {
+            if (isLuna) {
+                toggleImage.src = '../static/img/SOL.png'; // Cambia la imagen a Sol
+                document.body.classList.add('inverted'); // Aplica la clase para invertir colores
+            } else {
+                toggleImage.src = '../static/img/LUNA.png'; // Cambia la imagen a Luna
+                document.body.classList.remove('inverted'); // Quita la clase de inversión de colores
+            }
+            isLuna = !isLuna; // Cambia el estado
+        });
+
+        // Enviar el formulario usando AJAX
+$('#questionForm').on('submit', function (event) {
+    event.preventDefault(); // Previene el envío normal del formulario
+    const submitButton = $('#submitButton');
+    submitButton.prop('disabled', true); // Deshabilitar el botón mientras se espera la respuesta
+
+    // Enviar la solicitud AJAX
+    $.ajax({
+        url: '/ask',  // Ruta en Flask
+        method: 'POST',
+        data: $(this).serialize(),  // Datos del formulario
+        success: function (data) {
+            // Mostrar la respuesta recibida del servidor
+            //<p><strong>Tipo de pregunta:</strong> ${data.response}</p>
+            $('#response').html(`
+                <p><strong>Respuesta:</strong> ${data.answer}</p>
+                <p><strong>Tiempo de ejecución:</strong> ${data.time} segundos</p>
+            `);
+            $('#response').css({ opacity: 0, visibility: 'visible' }).animate({ opacity: 1 }, 500);
+        },
+        error: function () {
+            alert('Ocurrió un error al enviar la pregunta.');
+        },
+        complete: function () {
+            submitButton.prop('disabled', false);  // Habilitar el botón nuevamente
+        }
+    });
+});
+
+    </script>
+</body>
+
+<footer class="fondo">
+    <p>© Copyright Todos los derechos reservados 2024</p>
+    <b>By: Andy & Harold</b>
+</footer>
+
+</html>
