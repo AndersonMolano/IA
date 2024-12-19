@@ -1,36 +1,104 @@
 /* General styles */
+:root {
+    --jt-white: #f5f5f5;
+    --jt-azul-0: #7dbef0;
+    --jt-azul-1: #2a9ef5;
+    --jt-azul-2: #247ec4;
+    --jt-azul-3: #337ab7;
+    --jt-azul-4: #163060;
+    --jt-gris-1: #818486;
+    --jt-gris-2: #ccc;
+    --jt-gris-3: #393f45;
+    --jt-morado-1: #7340ba;
+    --jt-morado-2: #46287F;
+    --jt-morado-3: #4248BE;
+    --jt-amarillo-1: #ffcc32;
+    --jt-rojo-1: #d72b3b;
+    --jt-rojo-2: #eb8690;
+    --jt-negro-1: #111111;
+    --jt-sombra-1: rgba(0, 0, 0, 0.2);
+    --jt-sombra-2: rgba(22, 48, 96, .4);
+    --jt-sombra-3: rgba(255, 255, 255, 0.5);
+    --bg: var(--jt-white);
+    --fa: var(--jt-azul-1);
+}
+
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to right, #0d3558, #1897ff);
+    background: linear-gradient(to right, var(--jt-azul-4), var(--jt-azul-3) 150%);
     margin: 0;
     padding: 0;
-    color: #333;
+    color: var(--jt-gris-3);
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-size: cover;
+    /* Asegura que el fondo cubra toda la pantalla */
+    background-position: center;
+    /* Centra el fondo */
+    background-attachment: fixed;
+    /* Hace que el fondo no se mueva al hacer scroll */
+    overflow: hidden;
 }
 
-/* Título */
+
+/* Estilo general para el h1 */
 h1 {
     text-align: center;
-    color: #fff;
+    color: var(--jt-white);
     margin-bottom: 20px;
-    animation: fadeIn 1s; /* Animación de entrada */
+    font-size: 2em;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 0.1em solid var(--jt-white); /* Cursor parpadeante */
+    animation: typing 1s steps(30) 0s forwards, blink 0.75s step-end 1s forwards; /* 1s para esperar que la escritura termine */
 }
+
+/* Animación de escritura (letra por letra) */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Parpadeo del cursor */
+@keyframes blink {
+    50% {
+        border-color: transparent; /* Hace que el borde del cursor sea transparente */
+    }
+    100% {
+        border-color: transparent; /* Asegura que el cursor se mantenga invisible */
+    }
+}
+
+/* Media query para pantallas con un ancho máximo de 600px */
+@media (max-width: 600px) {
+    h1 {
+        top: 10%;
+        /* Cambiar el valor de top cuando la pantalla sea menor a 600px */
+    }
+}
+
+
 
 /* Formulario */
 form {
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
     align-items: center;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
+    background: var(--jt-white);
+    padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px var(--jt-negro-1);
     transition: transform 0.3s;
 }
+
+
 
 /* Efecto de levantamiento al pasar el mouse */
 form:hover {
@@ -40,108 +108,240 @@ form:hover {
 /* Input de texto */
 input[type="text"] {
     padding: 10px;
-    width: 300px;
-    border: 1px solid #ccc;
+    width: 600px;
+    border: 1px solid var(--jt-gris-2);
     border-radius: 5px;
-    margin-bottom: 10px;
     font-size: 16px;
-    transition: border-color 0.3s; /* Transición de color de borde */
+    transition: border-color 0.3s;
+    /* Transición de color de borde */
 }
 
-input[type="text"]:focus {
-    border-color: #2362a5; /* Color de borde al enfocar */
-    outline: none; /* Quita el contorno por defecto */
-}
-
-/* Botón */
-button {
-    padding: 10px 20px;
-    background-color: #2362a5;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* Transición de color y tamaño */
-}
-
-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05); /* Aumenta el tamaño al pasar el mouse */
-}
-
-/* Respuesta */
 #response {
-    margin-top: 20px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--jt-gris-2);
     border-radius: 5px;
-    background-color: #fff;
+    background-color: var(--jt-white);
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    opacity: 0; /* Comienza oculto */
-    visibility: hidden; /* Comienza oculto */
-    transition: opacity 0.2s ease-in-out; /* Transición de opacidad */
+    box-shadow: 0 2px 4px var(--jt-negro-1);
+    opacity: 0;
+    /* Comienza oculto */
+    visibility: hidden;
+    /* Comienza oculto */
+    transition: opacity 0.2s ease-in-out, transform 0.3s ease;
+    /* Transición de opacidad y movimiento */
+    transform: translateX(-100px);
+    /* Ajusta el valor para moverlo hacia la izquierda */
 }
 
 #response.visible {
-    opacity: 1; /* Muestra la respuesta */
-    visibility: visible; /* Cambia a visible cuando se añade la clase */
+    opacity: 1;
+    /* Muestra la respuesta */
+    visibility: visible;
+    /* Cambia a visible cuando se añade la clase */
 }
 
 /* Estilo del footer */
 footer {
-    position: absolute; /* Permite colocar el footer en cualquier parte de la página */
-    bottom: 0; /* Coloca el footer en la parte inferior */
-    right: 1; /* Coloca el footer en la parte derecha */
-    height: 60px; /* Altura del footer */
-    width: 400px; /* Ancho del footer */
-    text-align: center; /* Centra el texto en el footer */
-    color: #fff; /* Color del texto */ 
-    animation: fadeIn 1s; /* Animación de entrada */
-}
-
-.cambio_color {
-    display: flex;
     position: absolute;
-    top: 10px; /* Coloca el elemento a 10px del borde superior */
-    right: 10px; /* Coloca el elemento a 10px del borde derecho */
-    justify-content: center;
-    align-items: center;
+    /* Cambiado de 'solid' a 'relative' para posicionar el footer correctamente */
+    bottom: 0;
+    /* Coloca el footer en la parte inferior */
+    right: 0;
+    /* Coloca el footer en la parte derecha */
+    height: 60px;
+    /* Altura del footer */
+    width: 100%;
+    /* Ancho completo del footer */
+    text-align: center;
+    /* Centra el texto en el footer */
+    color: var(--jt-white);
+    /* Color del texto */
+    padding-top: 20px;
+    /* Añadido un espacio arriba del texto en lugar de <br> */
+    animation: fadeIn 1s;
+    /* Animación de entrada */
 }
 
-
-/* Párrafos */
+/* Sobrescribir el margin-bottom de Bootstrap para los elementos <p> */
 p {
-    margin: 0;
-    padding: 5px 0;
+    margin-bottom: 0 !important;
+    /* Usar !important para asegurarse de que sobrescriba cualquier regla anterior */
+    padding: 3px 0;
+    max-width: 100%;
 }
+
 
 .inverted {
-    background: linear-gradient(to right, #a7a6a6, #333); /* Fondo invertido */
-    color: #000; /* Color de texto invertido */
+    background: linear-gradient(to right, var(--jt-sombra-3), var(--jt-gris-2));
+    /* Fondo invertido */
+    color: var(--jt-negro-1);
+    /* Color de texto invertido */
 }
 
-.inverted h1, 
+.inverted h1,
 .inverted form,
 .inverted footer {
-    color: #333; /* Color de texto para el título y footer */
+    color: #333;
+    /* Color de texto para el título y footer */
 }
+
 .inverted footer,
 .inverted button {
-    background-color: #ccc; /* Fondo para botones invertidos */
-    color: #000; /* Color de texto para botones invertidos */
+    background-color: var(--jt-gris-2);
+    /* Fondo para botones invertidos */
+    color: var(--jt-negro-1);
+    /* Color de texto para botones invertidos */
 }
 
 .inverted button:hover {
-    background-color: #aaa; /* Color de fondo al pasar el mouse */
+    background-color: var(--jt-gris-2);
+    /* Color de fondo al pasar el mouse */
 }
 
 .inverted input[type="text"] {
-    background-color: #ccc; /* Fondo para input invertido */
-    border-color: #333; /* Borde para input invertido */
+    background-color: var(--jt-gris-2);
+    /* Fondo para input invertido */
+    border-color: var(--jt-gris-3);
+    /* Borde para input invertido */
+}
+
+.logo-jaimetorres {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.question-container {
+    padding: 10px;
+    border: 1px solid var(--jt-gris-2);
+    border-radius: 5px;
+    background-color: var(--jt-white);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px var(--jt-negro-1);
+    opacity: 0;
+    /* Comienza oculto */
+    visibility: hidden;
+    /* Comienza oculto */
+    transition: opacity 0.2s ease-in-out, transform 0.3s ease;
+    /* Transición de opacidad y movimiento */
+    transform: translateX(100px);
+    /* Ajusta el valor para moverlo hacia la derecha */
+}
+
+/* Estilo para el contenedor de la conversación */
+.conversation-container {
+    padding: 10px;
+    width: 100%;
+    /* Asegura que el contenedor ocupe todo el ancho disponible */
+    max-width: 700px;
+    /* Establece un ancho máximo específico */
+    max-height: 70%;
+    /* Establece una altura fija */
+    overflow-y: scroll;
+    /* Habilita el scroll pero mantiene la barra oculta */
+    margin: 0 auto;
+    /* Centra el contenedor */
+    position: relative;
+    /* Necesario para el posicionamiento de los mensajes */
+    display: flex;
+    flex-direction: column;
+    /* Para que los mensajes se apilen de arriba a abajo */
+    justify-content: flex-start;
+    /* Asegura que los mensajes se alineen arriba */
+}
+
+/* Estilo para ocultar la barra de desplazamiento pero mantener la funcionalidad */
+.conversation-container::-webkit-scrollbar {
+    width: 0px;
+    /* Oculta la barra de desplazamiento en Webkit (Chrome, Safari, etc.) */
+    background: transparent;
+    /* Fondo transparente */
+}
+
+.conversation-container {
+    -ms-overflow-style: none;
+    /* Para IE y Edge */
+    scrollbar-width: none;
+    /* Para Firefox */
+}
+
+/* Estilo para las preguntas */
+.conversation-container .question {
+    background-color: var(--jt-white);
+    /* Fondo azul para las preguntas */
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+    text-align: left;
+    /* Alinea el texto de la pregunta a la izquierda */
+    margin-left: 0;
+    /* No se necesita margen izquierdo */
+    margin-right: 0;
+    /* No se necesita margen derecho */
+    max-width: 75%;
+    /* Asegura que la pregunta ocupe todo el ancho disponible */
+    box-shadow: 2px 2px 8px 1px var(--jt-negro-1);
+    align-self: flex-end;
+    /* Alinea las preguntas a la derecha */
+    word-wrap: break-word;
+    /* Permite que el texto se ajuste si es demasiado largo */
+    /*display: ruby;*/
+}
+
+/* Estilo para las respuestas */
+.conversation-container .response {
+    background-color: var(--jt-white);
+    /* Fondo gris claro para las respuestas */
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+    text-align: left;
+    /* Alinea el texto de la respuesta a la izquierda */
+    margin-left: 0;
+    /* No se necesita margen izquierdo */
+    margin-right: 0;
+    /* No se necesita margen derecho */
+    max-width: 75%;
+    /* Asegura que la respuesta ocupe todo el ancho disponible */
+    /* box-shadow: 2px 2px 8px 1px var(--jt-negro-1); */
+    align-self: flex-start;
+    /* Alinea las respuestas a la izquierda */
+    word-wrap: break-word;
+    /* Permite que el texto se ajuste si es demasiado largo */
+    /*display: flex;*/
+}
+
+/* Estilo adicional para mejorar la apariencia de las preguntas y respuestas */
+.question {
+    background-color: var(--jt-white);
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.response {
+    animation-delay: 1s;
+    /* Retrasa la animación de las respuestas 1 segundo */
+    background-color: var(--jt-gris-2);
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+.question-containe.visible {
+    opacity: 1;
+    /* Muestra la respuesta */
+    visibility: visible;
+    /* Cambia a visible cuando se añade la clase */
 }
 
 /* Animación de entrada */
@@ -149,7 +349,99 @@ p {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
 }
+
+
+.custom-textarea-container {
+    background-color: var(--jt-gris-2);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--jt-negro-1);
+
+}
+
+.input-container {
+    display: flex;
+    /* Flexbox para alinear el textarea y la imagen */
+    align-items: center;
+    /* Centra la imagen verticalmente con respecto al textarea */
+}
+
+
+.send-icon {
+    height: 25px;
+    /* Tamaño de la imagen */
+    margin-left: 20px;
+    /* Espaciado entre el textarea y la imagen */
+    cursor: pointer;
+    /* Cambia el cursor a puntero cuando pasa sobre la imagen */
+}
+
+#questionInput {
+    overflow: hidden;
+    /* Oculta el scrollbar */
+    resize: none;
+    /* Deshabilita el redimensionamiento */
+}
+
+#img-pregunta{
+    height: 35px;
+    position: absolute;
+    right: 1%;
+    bottom: 95%;
+}
+
+/* Estilo del modal */
+.modal {
+    display: none; /* Ocultar el modal por defecto */
+    position: fixed; /* Fijar el modal en la pantalla */
+    z-index: 1; /* Establecer la capa más alta */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  }
+  
+  /* Contenido del modal */
+  .modelo {
+    background-color: white;
+    position: fixed;
+    top: 45px;
+    right: 45px;
+    height: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  
+  /* Botón para cerrar el modal */
+  .close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    cursor: pointer;
+  }
+  
+  /* Estilo del mensaje dentro del modal */
+  #mensaje-modal {
+    font-size: 18px;
+    color: #333;
+  }
+  

@@ -1,82 +1,83 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-co">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Pregunta a PILA</title>
+
+    <!-- Vinculación con la hoja de estilos CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Inclusión de jQuery desde CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <img src="../static/img/descarga.webp" alt="logo">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Cabecera -->
+
+    <!-- Cabecera de Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' blob: http://camarapu-pruebas.enlace-apb.com www.enlace-apb.com pila-electronica.com pila-asistida.com pila.enlace-apb.com prbusr.enlace-apb.com prbusr1.enlace-apb.com prbusr12.enlace-apb.com prbranch.enlace-apb.com prbtsoa.enlace-apb.com soporte.enlace-apb.com fonts.googleapis.com; style-src 'self' 'unsafe-inline' data: https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' http://localhost:3000/ https://cdn.jsdelivr.net/; font-src 'self' data: http://localhost:3000/ https://fonts.gstatic.com/; img-src 'self' http://localhost:3000/ https://www.conectapila.com.co/; frame-ancestors 'self' http://camarapu-pruebas.enlace-apb.com https://www.enlace-apb.com https://www.pila-electronica.com https://pila-electronica.com https://www.pila-asistida.com https://pila-asistida.com https://prbusr.enlace-apb.com https://prbtsoa.enlace-apb.com https://asistida.enlace-apb.com https://comunicaciones.enlace-apb.com;">
+
+    <!-- Cabecera de Permission Policy -->
+    <meta http-equiv="Permissions-Policy"
+        content="fullscreen=(self 'http://camarapu-pruebas.enlace-apb.com https://www.enlace-apb.com https://www.pila-electronica.com https://pila-electronica.com https://www.pila-asistida.com https://pila-asistida.com https://prbusr.enlace-apb.com https://prbtsoa.enlace-apb.com https://asistida.enlace-apb.com https://comunicaciones.enlace-apb.com') sync-xhr none; microphone none; camera none; magnetometer none; usb none; vr none; wake-lock none; web-bluetooth none;">
+
 </head>
 
-<body>
-    <h1>Pregunta a PILA</h1>
+<body class="container">
 
-    <!-- Formulario para hacer preguntas -->
-    <form id="questionForm">
-        <input type="text" name="question" placeholder="Escribe tu pregunta aquí" required>
-        <button type="submit" id="submitButton">Enviar</button>
-    </form>
+    <!-- Logo de la marca o sitio -->
+    <header class="logo-jaimetorres">
+        <img src="../static/img/descarga.webp" alt="Logo de Jaime Torres">
+    </header>
 
-    <button class="cambio_color" id="toggleColors">
-        <img id="toggleImage" src="../static/img/SOL.png" alt="Luna" style="width: 20px; height: 20px;">
-    </button>
+    <!-- Título principal de la página -->
+    <section class="main-title">
+        <h1 class="text-white">Pregunta a PILA</h1>
+    </section>
 
-    <div id="response" style="opacity: 0; visibility: hidden;"></div>
+    <!-- Contenedor para la conversación -->
+    <section id="conversation" class="conversation-container" style="opacity: 0; visibility: hidden;">
+        <!-- Aquí se agregan las preguntas y respuestas dinámicamente -->
+    </section>
 
-    <script>
-        // Botón para cambiar entre modo claro y oscuro
-        const toggleButton = document.getElementById('toggleColors');
-        const toggleImage = document.getElementById('toggleImage');
-        let isLuna = true; // Variable para rastrear el estado
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-11 col-md-8 col-lg-6 custom-textarea-container">
+                <!-- Contenedor para el textarea y la imagen -->
+                <div class="input-container d-flex align-items-center">
+                    <!-- Textarea con estilo inline para el width -->
+                    <textarea id="questionInput" class="col-12 p-2 bg-light border rounded form-control" rows="1.5"
+                        placeholder="Envía un mensaje a PILA" required></textarea>
+                    <!-- Imagen como botón -->
+                    <img id="sendText" src="../static/img/enviar-mensaje.png" alt="Enviar mensaje"
+                        class="submitButton send-icon">
+                </div>
+            </div>
+        </div>
+    </div>
 
-        toggleButton.addEventListener('click', function () {
-            if (isLuna) {
-                toggleImage.src = '../static/img/SOL.png'; // Cambia la imagen a Sol
-                document.body.classList.add('inverted'); // Aplica la clase para invertir colores
-            } else {
-                toggleImage.src = '../static/img/LUNA.png'; // Cambia la imagen a Luna
-                document.body.classList.remove('inverted'); // Quita la clase de inversión de colores
-            }
-            isLuna = !isLuna; // Cambia el estado
-        });
+    <!-- Pie de página -->
+    <footer class="fondo">
+        <p>© Copyright Todos los derechos reservados 2024</p>
+    </footer>
+    <img id="img-pregunta" src="../static/img/pregunta.png" alt="Info pregunta" class="Pregunta">
+    <!-- Modal (ventana emergente) -->
+    <div id="modal" class="modal">
+        <div class="modelo">
+            <span class="close">&times;</span>
+            <p id="mensaje-modal">Este es un mensaje informativo.</p>
+        </div>
+    </div>
 
-        // Enviar el formulario usando AJAX
-$('#questionForm').on('submit', function (event) {
-    event.preventDefault(); // Previene el envío normal del formulario
-    const submitButton = $('#submitButton');
-    submitButton.prop('disabled', true); // Deshabilitar el botón mientras se espera la respuesta
+    <!-- Script externo para funciones de la página -->
+    <script src="../static/js/base.js"></script>
 
-    // Enviar la solicitud AJAX
-    $.ajax({
-        url: '/ask',  // Ruta en Flask
-        method: 'POST',
-        data: $(this).serialize(),  // Datos del formulario
-        success: function (data) {
-            // Mostrar la respuesta recibida del servidor
-            //<p><strong>Tipo de pregunta:</strong> ${data.response}</p>
-            $('#response').html(`
-                <p><strong>Respuesta:</strong> ${data.answer}</p>
-                <p><strong>Tiempo de ejecución:</strong> ${data.time} segundos</p>
-            `);
-            $('#response').css({ opacity: 0, visibility: 'visible' }).animate({ opacity: 1 }, 500);
-        },
-        error: function () {
-            alert('Ocurrió un error al enviar la pregunta.');
-        },
-        complete: function () {
-            submitButton.prop('disabled', false);  // Habilitar el botón nuevamente
-        }
-    });
-});
-
-    </script>
 </body>
-
-<footer class="fondo">
-    <p>© Copyright Todos los derechos reservados 2024</p>
-    <b>By: Andy & Harold</b>
-</footer>
 
 </html>
